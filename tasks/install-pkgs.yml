@@ -1,0 +1,18 @@
+---
+# tasks for setup-sway
+
+- name: ensure needed packages are installed (FreeBSD)
+  when: ansible_os_family == "FreeBSD"
+  loop:
+    "{{ setup_sway_pkgs }}"
+  community.general.pkgng:
+    name: "{{ item }}"
+    state: present
+
+- name: ensure needed packages are installed (RedHat)
+  when: ansible_os_family == "RedHat"
+  loop:
+    "{{ setup_sway_pkgs }}"
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present

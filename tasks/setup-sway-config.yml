@@ -1,0 +1,44 @@
+---
+# tasks file for setup-sway
+- name: ensure needed user config directories are created
+  loop:
+    "{{ setup_sway_users }}"
+  ansible.builtin.file:
+    path: "/home/{{ item['username'] }}/{{ setup_sway_user_config_path }}"
+    owner: "{{ item['username'] }}"
+    group: "{{ item['username'] }}"
+    mode: "0700"
+    state: directory
+
+- Oname: ensure the config exists 
+  loop:
+    "{{ setup_sway_users }}"
+  ansible.builtin.copy:
+    src: "{{ setup_sway_default_config_filepath }}"
+    dest: "/home/{{ item['username'] }}/{{ setup_sway_user_config_path }}/config""
+    remote_src: true
+    owner: {{ item['username'] }}
+    group: {{ item['username'] }}
+    force: false
+
+- name: ensure the mods are in place
+  loop:
+    "{{ setup_sway_users }}
+  ansible.builtin.lineinfile:
+    path: "/home/{{ item['username'] }}/{{ setup_sway_user_config_path }}/config"
+    owner: "{{ item['username'] }}"
+    group: "{{ item['username'] }}"
+    mode: "0600"
+    marker: "RO Mods"
+    block: |
+      {% for curr_line in setup_sway_config_mods %}
+      {{ curr_line }}
+      {% endfor %}
+
+- name: ensure the user super key is set appropriately for that user
+  loop:
+    "{{ setup_sway_users }}"
+  ansible.builtin.lineinfile:
+    path: "/home/{{ item['username'] }}/{{ setup_sway_user_config_path }}/config""
+    regex: "set $mod Mod1"
+    line: "set $mod {{ item['super_key'] }}"

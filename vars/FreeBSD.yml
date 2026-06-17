@@ -1,0 +1,24 @@
+--
+# vars file for setup-sway
+
+# packages needed for sway
+setup_sway_pkgs:
+  - sway
+  - swayidle
+  - swaylock-effects
+  - alacritty
+  - dmenu-wayland
+  - dmenu
+  - dbus
+
+# user's config directory for sway
+setup_sway_user_config_path: ".config/sway"
+
+# default sway config file to setup for the user
+setup_sway_default_config_filepath: /usr/local/etc/sway/config
+
+# root group for FreeBSD
+setup_sway_root_group: wheel
+
+# wallpaper directory
+setup_sway_wallpaper_directory: /usr/local/share/wallpaper

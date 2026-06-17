@@ -1,0 +1,16 @@
+---
+# tasks file for setup-sway
+- name: ensure OS-specific variables exist
+  ansible.builtin.include_vars: "./vars/{{ ansible_os_family }}.yml"
+
+- name: ensure needed packages are installed
+  ansible.builtin.include_tasks: install-pkgs.yml
+
+- name: setup wallpaper location
+  ansible.builtin.include_tasks: setup-wallpaper.yml
+
+- name: call tasks to setup sway config
+  ansible.builtin.include_tasks: setup-sway-config.yml
+
+- name: call tasks to setup user documentation
+  ansible.builtin.include_tasks: setup-documentation.yml

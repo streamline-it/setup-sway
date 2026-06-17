@@ -1,0 +1,19 @@
+---
+# task file for setup-sway
+- name: ensure wallpaper directory is created
+  ansible.builtin.file:
+    path: "{{ setup_sway_wallpaper_directory }}"
+    owner: root
+    group: "{{ setup_sway_root_group }}"
+    mode: "0755"
+    state: directory
+
+- name: ensure wallpaper files exist
+  loop:
+    "{{ setup_sway_wallpaper_files }}"
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ setup_sway_wallpaper_directory }}/{{ item }}"
+    owner: root
+    group: "{{ setup_sway_root_group }}"
+    mode: "0644"

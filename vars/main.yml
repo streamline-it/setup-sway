@@ -1,0 +1,9 @@
+---
+# vars file for setup-sway
+
+# wallpaper filenames
+setup_sway_wallpaper_files:
+  - 7drops.jpg
+  - FreeBSD_Delight.jpg
+  - hot_enuf.jpg
+  - metal.jpg

@@ -1,0 +1,10 @@
+My app key bindings:
+
+$mod = Windows key
+
+$mod + n 	 - Thunar (file browser)
+$mod + t 	 - Mousepad (text editor)
+$mod + Shift + b - Firefox 
+$mod + o 	 - LibreOffice
+$mod + p 	 - LibreOffice Writer
+$mod + q 	 - LibreOffice Calc

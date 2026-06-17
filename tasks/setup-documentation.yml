@@ -1,0 +1,28 @@
+---
+# tasks file for setup-sway
+- name: ensure the documentation directory is created
+  ansible.builtin.file:
+    path: "{{ setup_sway_doc_filepath }}"
+    owner: root
+    group: "{{ setup_sway_root_group }}"
+    mode: "0755"
+    state: directory
+
+- name: ensure documentation regarding key bindings are copied to the host
+  ansible.builtin.copy:
+    src: "{{ setup_sway_key_binding_filename }}"
+    dest: "{{ setup_sway_doc_filepath }}/{{ setup_sway_key_binding_filename }}""
+    owner: root
+    group: "{{ setup_sway_root_group }}"
+    mode: 0644
+    
+- name: ensure documentation has a soft link created in the user's directory
+  loop:
+    "{{ setup_sway_users }}"
+  ansible.buitlin.file:
+    path: "/home/{{ username }}/{{ setup_sway_key_finding_filename }}"
+    src: "{{ setup_sway_doc_filepath }}/ {{ setup_sway_key_finding_filename }"
+    owner: "{{ item['username']}}"
+    group: "{{ item['username']}}"
+    mode: "0600"
+    state: link
