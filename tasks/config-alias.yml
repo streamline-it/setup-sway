@@ -3,7 +3,7 @@
   loop:
     "{{ setup_sway_users }}"
   ansible.builtin.lineinfile:
-    path: "/home/{{ ['username'] }}/.bashrc"
+    path: "/home/{{ item['username'] }}/.bashrc"
     regexp: "alias mystartsway='dbus-run-session sway'"
     line: "alias mystartsway='dbus-run-session sway"
     create: true
