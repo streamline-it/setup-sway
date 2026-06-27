@@ -10,26 +10,26 @@
     mode: "0700"
     state: directory
 
-- Oname: ensure the config exists 
+- name: ensure the config exists 
   loop:
     "{{ setup_sway_users }}"
   ansible.builtin.copy:
     src: "{{ setup_sway_default_config_filepath }}"
-    dest: "/home/{{ item['username'] }}/{{ setup_sway_user_config_path }}/config""
+    dest: "/home/{{ item['username'] }}/{{ setup_sway_user_config_path }}/config"
     remote_src: true
-    owner: {{ item['username'] }}
-    group: {{ item['username'] }}
+    owner: "{{ item['username'] }}"
+    group: "{{ item['username'] }}"
     force: false
 
 - name: ensure the mods are in place
   loop:
-    "{{ setup_sway_users }}
-  ansible.builtin.lineinfile:
+    "{{ setup_sway_users }}"
+  ansible.builtin.blockinfile:
     path: "/home/{{ item['username'] }}/{{ setup_sway_user_config_path }}/config"
     owner: "{{ item['username'] }}"
     group: "{{ item['username'] }}"
     mode: "0600"
-    marker: "RO Mods"
+    marker: "# {mark} Ansible: setup-sway mods"
     block: |
       {% for curr_line in setup_sway_config_mods %}
       {{ curr_line }}
@@ -39,6 +39,23 @@
   loop:
     "{{ setup_sway_users }}"
   ansible.builtin.lineinfile:
-    path: "/home/{{ item['username'] }}/{{ setup_sway_user_config_path }}/config""
+    path: "/home/{{ item['username'] }}/{{ setup_sway_user_config_path }}/config"
     regex: "set $mod Mod1"
     line: "set $mod {{ item['super_key'] }}"
+
+- name: ensure the default wallpaper is disabled
+  loop:
+    "{{ setup_sway_users }}"
+  ansible.builtin.lineinfile:
+    path: "/home/{{ item['username'] }}/{{ setup_sway_user_config_path }}/config"
+    regexp: "^output \\* bg /usr/local/share/backgrounds/sway"
+    line: "#output * bg /usr/local/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill"
+    state: present
+
+- name: ensure the user the terminal is set appropriately for that user
+  loop:
+    "{{ setup_sway_users }}"
+  ansible.builtin.lineinfile:
+    path: "/home/{{ item['username'] }}/{{ setup_sway_user_config_path }}/config"
+    regexp: "set \\$term"
+    line: "set $term {{ setup_sway_terminal }}"

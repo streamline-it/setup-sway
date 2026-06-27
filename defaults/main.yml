@@ -7,6 +7,7 @@ setup_sway_users:
   - username: 
     super_key: "Mod4"
     wallpaper:
+    terminal_font_size: 13.0
 
 # following variable holds the name of the doc file listing key
 # bindings
@@ -15,13 +16,19 @@ setup_sway_key_binding_filename: sway-key-bindings.txt
 # custom documentation directory for the key binding doc
 setup_sway_doc_filepath: /usr/local/share/doc/ro_docs
 
+# alacritty config name
+setup_sway_alacritty_filename: alacritty.toml
+
+# set terminal for sway
+setup_sway_terminal: alacritty
+
 # sway config mods mostly keybindings.
 setup_sway_config_mods:
   - assign [class="terminal"] 2
   - bindsym $mod+n workspace 4; exec "thunar"
   - bindsym $mod+t workspace 4; exec "mousepad"
-  - bindsym $mod+SHIFT+b workspace 3; exec "firefox"
+  - bindsym $mod+Shift+b workspace 3; exec "firefox"
   - bindsym $mod+o workspace 5; exec "libreoffice"
   - bindsym $mod+p workspace 5; exec "lowriter"
   - bindsym $mod+q workspace 5; exec "localc"
-  - exec --no-startup-id xwallpaper --zoom {{ setup_sway_wallpaper_directory }}/{{ item['wallpaper'] }}
+  - output * bg {{ setup_sway_wallpaper_directory }}/{{ item['wallpaper'] }} fill

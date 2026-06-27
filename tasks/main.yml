@@ -14,3 +14,9 @@
 
 - name: call tasks to setup user documentation
   ansible.builtin.include_tasks: setup-documentation.yml
+
+- name: call tasks to setup alacritty terminal settings
+  ansible.builtin.include_tasks: config-alacritty.yml
+
+- name: add alias to .bashrc
+  ansible.builtin.include_tasks: config-alias.yml

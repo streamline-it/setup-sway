@@ -1,0 +1,9 @@
+---
+- name: ensure the alias to start sway exists
+  loop:
+    "{{ setup_sway_users }}"
+  ansible.builtin.lineinfile:
+    path: "/home/{{ ['username'] }}/.bashrc"
+    regexp: "alias mystartsway='dbus-run-session sway'"
+    line: "alias mystartsway='dbus-run-session sway"
+    create: true

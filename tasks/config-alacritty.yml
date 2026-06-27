@@ -1,0 +1,26 @@
+---
+# tasks file for setup-sway
+- name: ensure the alacritty config directory exists
+  loop:
+    "{{ setup_sway_users  }}"
+  ansible.builtin.file:
+    path: "/home/{{ item['username'] }}/.config/{{ setup_sway_alacritty_filename }}"
+    owner: "{{ item['username'] }}"
+    group: "{{ item['username'] }}"
+    mode: "0700"
+    state: directory
+
+- name: ensure to configure the font size for alacritty
+  loop:
+    "{{ setup_sway_users }}"
+  ansible.builtin.blockinfile:
+    path: "/home/{{ item['username'] }}/.config/alacritty/{{ setup_sway_alacritty_filename }}"
+    marker: "# {mark} setup-sway Ansible marker"
+    create: true
+    block: |
+      [font]
+      size = {{ item['terminal_font_size'] }}
+    owner: "{{ item['username'] }}"
+    group: "{{ item['username'] }}"
+    mode: "0600"
+    state: present 
