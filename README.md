@@ -2,6 +2,7 @@ Role Name
 =========
 
 setup-sway
+This will setup the sway compositor for Wayland.  It includes ability to set wallpaper, setup default font for alacritty too.  It will setup default key bindings for sway to start a browser, mousepad, and thunar allong with Firefox in their own designated work spaces.  This role will also provide documentation for those keybindings to the user's home directory.
 
 Requirements
 ------------
@@ -23,6 +24,7 @@ setup_sway_users:
   - username: 
     super_key: "Mod4"
     wallpaper:
+    terminal_font_size: 13
 
 # following variable holds the name of the doc file listing key
 # bindings
@@ -30,6 +32,12 @@ setup_sway_key_binding_filename: sway-key-bindings.txt
 
 # custom documentation directory for the key binding doc
 setup_sway_doc_filepath: /usr/local/share/doc/ro_docs
+
+# alacritty config name
+setup_sway_alacritty_filename: alacritty.toml
+
+# set terminal for sway
+setup_sway_terminal: alacritty
 
 # sway config mods mostly keybindings.
 setup_sway_config_mods:
@@ -86,10 +94,21 @@ None
 Example Playbook
 ----------------
 
+- name: setup sway
+  hosts: node5.example.com
+  become: true
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+  vars:
+
+    setup_sway_users:
+      - username: rich
+        super_key: Mod4
+        wallpaper: 7drops.jpg
+        terminal_font_size: 13.0
+
+  roles:
+
+    - name: setup-sway
 
 License
 -------
