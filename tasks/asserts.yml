@@ -1,0 +1,30 @@
+---
+# tasks file for setup-sway
+- name: ensure variables exist and are defined correctly
+  ansible.builtin.assert:
+    that: 
+      - setup_sway_users is defined
+      - setup_sway_users is truthy
+      - setup_sway_key_binding_filename is defined
+      - setup_sway_key_binding_filename is truthy
+      - setup_sway_doc_filepath is defined      
+      - setup_sway_doc_filepath is truthy
+      - setup_sway_alacritty_filename is defined
+      - setup_sway_alacritty_filename is truthy
+      - setup_sway_terminal is defined
+      - setup_sway_terminal is truthy
+      - setup_sway_config_mods is defined
+      - setup_sway_config_mods is truthy
+      - setup_sway_wallpaper_files is defined
+      - setup_sway_wallpaper_files is truthy
+      - setup_sway_pkgs is defined
+      - setup_sway_pkgs is truthy
+      - setup_sway_user_config_path is defined
+      - setup_sway_user_config_path is truthy
+      - setup_sway_default_config_filepath is defined
+      - setup_sway_default_config_filepath is truthy
+      - setup_sway_root_group is defined
+      - setup_sway_root_group is truthy
+      - setup_sway_wallpaper_directory is defined
+      - setup_sway_wallpaper_directory is truthy
+    fail_msg: "Some variable(s) failed the assertion"

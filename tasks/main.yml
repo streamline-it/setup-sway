@@ -1,7 +1,12 @@
 ---
 # tasks file for setup-sway
+
 - name: ensure OS-specific variables exist
   ansible.builtin.include_vars: "./vars/{{ ansible_os_family }}.yml"
+
+- name: call tasks to check assertions
+  ansible.builtin.include_tasks: asserts.yml
+
 
 - name: ensure needed packages are installed
   ansible.builtin.include_tasks: install-pkgs.yml
