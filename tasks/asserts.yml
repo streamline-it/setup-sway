@@ -1,6 +1,7 @@
 ---
 # tasks file for setup-sway
 - name: ensure variables exist and are defined correctly
+  debugger: on_failed
   ansible.builtin.assert:
     that: 
       - setup_sway_users is defined
@@ -13,8 +14,7 @@
       - setup_sway_alacritty_filename is truthy
       - setup_sway_terminal is defined
       - setup_sway_terminal is truthy
-      - setup_sway_config_mods is defined
-      - setup_sway_config_mods is truthy
+      - '"setup_sway_config_mods in vars"'
       - setup_sway_wallpaper_files is defined
       - setup_sway_wallpaper_files is truthy
       - setup_sway_pkgs is defined

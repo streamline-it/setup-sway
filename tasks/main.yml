@@ -7,7 +7,6 @@
 - name: call tasks to check assertions
   ansible.builtin.include_tasks: asserts.yml
 
-
 - name: ensure needed packages are installed
   ansible.builtin.include_tasks: install-pkgs.yml
 
