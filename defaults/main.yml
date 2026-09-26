@@ -32,3 +32,14 @@ setup_sway_config_mods:
   - bindsym $mod+p workspace 5; exec "lowriter"
   - bindsym $mod+q workspace 5; exec "localc"
   - output * bg {{ setup_sway_wallpaper_directory }}/{{ item['wallpaper'] }} fill
+
+# If true the sway status_command default will be commented out and a custome
+# status command will be used
+setup_sway_config_use_cust_statcmd: false
+
+# used to find the default status_command line and comment out
+setup_sway_config_statcmd_regex: "status_command"
+
+# used to create a custom status_command, usually for the purpose of a laptop to
+# include a battery monitor
+setup_sway_config_statcmd_custom: "    status_command while echo $(date +'%Y-%m-%d %H:%M'; echo \"\\| Batt:\"; sysctl hw.acpi.battery.life | cut -d ':' -f2); do sleep 30; done"

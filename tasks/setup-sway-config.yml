@@ -59,3 +59,12 @@
     path: "/home/{{ item['username'] }}/{{ setup_sway_user_config_path }}/config"
     regexp: "set \\$term"
     line: "set $term {{ setup_sway_terminal }}"
+
+- name: ensure the custom status_command is in place
+  when: setup_sway_config_use_cust_statcmd
+  loop:
+    "{{ setup_sway_users }}"
+  ansible.builtin.lineinfile:
+    path: "/home/{{ item['username'] }}/{{ setup_sway_user_config_path }}/config"
+    regexp: "{{ setup_sway_config_statcmd_regex }}"
+    line:  "{{ setup_sway_config_statcmd_custom }}"
